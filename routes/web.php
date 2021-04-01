@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//Route::post('upload', 'FileController')->name('upload');
+
+Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+	Route::post('create', [ProductController::class, 'store'])->name('store');
 });
