@@ -24,20 +24,139 @@
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <h3>Import your Exel file:</h3>
-                </div>
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                @if ($message = Session::get('danger'))
+                    <div class="alert alert-danger">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
+
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
+                            <div class="flex items-center ml-12">
+                                <h4 class="text-center mb-3">Upload Exel file</h4>
+                            </div>
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    <form method="POST" action="{{ route('products.store') }}" autocomplete="off">
+                                    <form method="POST" action="{{ route('files.upload') }}" enctype="multipart/form-data">
+                                        @csrf
+
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" name="file" aria-label="file example" required>
+                                            <button class="btn btn-outline-success" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l"></div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
+                            <div class="flex items-center">
+                                <h4 class="text-center mb-3 ml-12">Import products to database</h4>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="POST" action="{{ route('products.import') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="input-group">
-                                            <input type="file" class="form-control" aria-label="file example" required>
-                                            <button class="btn btn-outline-success" type="submit">Submit</button>
+                                            <button class="btn btn-outline-success" type="submit">Import products</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center">
+                                <h4 class="text-center mb-3 ml-12">Import rubrics to database</h4>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="POST" action="{{ route('import.rubrics') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-success" type="submit">Import rubrics</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
+                            <div class="flex items-center">
+                                <h4 class="text-center mb-3 ml-12">Import sub-rubrics to database</h4>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="POST" action="{{ route('import.sub_rubrics') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-success" type="submit">Import sub-rubrics</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
+                            <div class="flex items-center">
+                                <h4 class="text-center mb-3 ml-12">Import product categories to database</h4>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="POST" action="{{ route('import.product-categories') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-success" type="submit">Import product categories</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
+                            <div class="flex items-center">
+                                <h4 class="text-center mb-3 ml-12">Import manufacturers to database</h4>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="POST" action="{{ route('import.manufacturers') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-success" type="submit">Import manufacturers</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
+                            <div class="flex items-center">
+                                <h4 class="text-center mb-3 ml-12">Import warranties to database</h4>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="POST" action="{{ route('import.warranties') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-success" type="submit">Import warranties</button>
                                         </div>
                                     </form>
                                 </div>
@@ -45,7 +164,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})

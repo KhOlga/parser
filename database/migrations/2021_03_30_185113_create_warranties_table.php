@@ -15,7 +15,7 @@ class CreateWarrantiesTable extends Migration
     {
         Schema::create('warranties', function (Blueprint $table) {
 			$table->integerIncrements('id');
-			$table->string('name')->unique();
+			$table->string('duration')->unique();
         });
     }
 

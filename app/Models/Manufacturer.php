@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Builder, Model};
 
+/** @mixin Builder*/
 class Manufacturer extends Model
 {
 	protected $table = 'manufacturers';

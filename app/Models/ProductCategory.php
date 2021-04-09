@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Builder, Model};
 
+/** @mixin Builder*/
 class ProductCategory extends Model
 {
 	protected $table = 'product_categories';
@@ -19,13 +20,8 @@ class ProductCategory extends Model
 		return $this->hasMany(Product::class);
 	}
 
-	public function rubric()
-	{
-		return $this->hasMany(Rubric::class);
-	}
-
 	public function subRubric()
 	{
-		return $this->hasMany(SubRubric::class);
+		return $this->belongsToMany(SubRubric::class, 'sub_rubrics_has_product_categories');
 	}
 }

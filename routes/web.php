@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RubricController;
+use App\Http\Controllers\SubRubricController;
+use App\Http\Controllers\WarrantyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +24,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::post('upload', 'FileController')->name('upload');
+Route::group(['prefix' => 'files', 'as' => 'files.'], function () {
+	Route::post('upload', [FileController::class, 'upload'])->name('upload');
+});
 
 Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
-	Route::post('create', [ProductController::class, 'store'])->name('store');
+	Route::post('import', [ProductController::class, 'import'])->name('import');
+});
+
+Route::group(['prefix' => 'import', 'as' => 'import.'], function () {
+	Route::post('rubrics', [RubricController::class, 'import'])->name('rubrics');
+	Route::post('sub-rubrics', [SubRubricController::class, 'import'])->name('sub_rubrics');
+	Route::post('product-categories', [ProductCategoryController::class, 'import'])->name('product-categories');
+	Route::post('manufacturers', [ManufacturerController::class, 'import'])->name('manufacturers');
+	Route::post('warranties', [WarrantyController::class, 'import'])->name('warranties');
 });

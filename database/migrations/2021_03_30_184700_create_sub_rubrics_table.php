@@ -15,14 +15,7 @@ class CreateSubRubricsTable extends Migration
     {
         Schema::create('sub_rubrics', function (Blueprint $table) {
 			$table->integerIncrements('id');
-			$table->unsignedInteger('rubric_id');
 			$table->string('name')->unique();
-
-			$table->foreign('rubric_id')
-				->references('id')
-				->on('rubrics')
-				->onUpdate('cascade')
-				->onDelete('cascade');
         });
     }
 

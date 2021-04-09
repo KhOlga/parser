@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Builder, Model};
 
+/** @mixin Builder*/
 class Rubric extends Model
 {
     protected $table = 'rubrics';
@@ -14,8 +15,8 @@ class Rubric extends Model
 
     public $timestamps = false;
 
-	public function subRubric()
+	public function subRubrics()
 	{
-		return $this->hasMany(SubRubric::class);
+		return $this->belongsToMany(SubRubric::class, 'rubric_has_sub_rubrics');
 	}
 }
